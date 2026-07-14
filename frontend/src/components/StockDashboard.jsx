@@ -9,7 +9,7 @@ import EditProductDialog from '@/components/EditProductDialog'
 import DeleteProductDialog from '@/components/DeleteProductDialog'
 import LowStockAlert from '@/components/LowStockAlert'
 
-export default function StockDashboard() {
+export default function StockDashboard({ onLogout }) {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -131,7 +131,12 @@ export default function StockDashboard() {
       <Card>
         <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <CardTitle className="text-2xl">Stock Management Dashboard</CardTitle>
-          <AddProductDialog onAdded={handleAdded} />
+          <div className="flex items-center gap-2">
+            <AddProductDialog onAdded={handleAdded} />
+            <Button variant="outline" onClick={onLogout}>
+              Logout
+            </Button>
+          </div>
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
