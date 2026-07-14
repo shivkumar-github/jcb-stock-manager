@@ -89,6 +89,37 @@ export default function StockDashboard({ onLogout }) {
     setProducts((prev) => prev.filter((p) => p.id !== deletedId))
   }
 
+  async function handleQuantityChange(product, change) {
+    const newQuantity = Math.max(0, product.quantity + change)
+
+    // Optimistic UI update
+    setProducts((prev) =>
+      prev.map((p) =>
+        p.id === product.id
+          ? { ...p, quantity: newQuantity }
+          : p
+      )
+    )
+
+    const { error } = await supabase
+      .from('products')
+      .update({ quantity: newQuantity })
+      .eq('id', product.id)
+
+    if (error) {
+      // Rollback on failure
+      setProducts((prev) =>
+        prev.map((p) =>
+          p.id === product.id
+            ? { ...p, quantity: product.quantity }
+            : p
+        )
+      )
+
+      alert(error.message)
+    }
+  }
+
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 p-4 sm:p-6">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -171,6 +202,7 @@ export default function StockDashboard({ onLogout }) {
               products={filteredProducts}
               onEdit={handleEditRequest}
               onDelete={handleDeleteRequest}
+              onQuantityChange={handleQuantityChange}
             />
           )}
         </CardContent>
