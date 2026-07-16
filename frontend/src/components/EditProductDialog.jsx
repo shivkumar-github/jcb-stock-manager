@@ -90,67 +90,71 @@ export default function EditProductDialog({ open, product, onOpenChange, onUpdat
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[440px]">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>Edit Product</DialogTitle>
             <DialogDescription>
-              Update the product details. Click save when done.
+              Update the product details, then save.
             </DialogDescription>
           </DialogHeader>
 
           <div className="grid gap-4 py-4">
-            <div className="grid gap-2">
+            <div className="grid gap-1.5">
               <Label htmlFor="edit-part-number">Part Number</Label>
               <Input
                 id="edit-part-number"
                 value={form.part_number}
                 onChange={(e) => handleChange('part_number', e.target.value)}
+                className="h-9"
               />
               {errors.part_number && (
-                <p className="text-sm text-red-500">{errors.part_number}</p>
+                <p className="text-sm text-red-600">{errors.part_number}</p>
               )}
             </div>
 
-            <div className="grid gap-2">
+            <div className="grid gap-1.5">
               <Label htmlFor="edit-name">Product Name</Label>
               <Input
                 id="edit-name"
                 value={form.name}
                 onChange={(e) => handleChange('name', e.target.value)}
+                className="h-9"
               />
-              {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
+              {errors.name && <p className="text-sm text-red-600">{errors.name}</p>}
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <div className="grid gap-2">
+              <div className="grid gap-1.5">
                 <Label htmlFor="edit-quantity">Quantity</Label>
                 <Input
                   id="edit-quantity"
                   type="number"
                   value={form.quantity}
                   onChange={(e) => handleChange('quantity', e.target.value)}
+                  className="h-9"
                 />
                 {errors.quantity && (
-                  <p className="text-sm text-red-500">{errors.quantity}</p>
+                  <p className="text-sm text-red-600">{errors.quantity}</p>
                 )}
               </div>
 
-              <div className="grid gap-2">
+              <div className="grid gap-1.5">
                 <Label htmlFor="edit-minimum-quantity">Minimum Quantity</Label>
                 <Input
                   id="edit-minimum-quantity"
                   type="number"
                   value={form.minimum_quantity}
                   onChange={(e) => handleChange('minimum_quantity', e.target.value)}
+                  className="h-9"
                 />
                 {errors.minimum_quantity && (
-                  <p className="text-sm text-red-500">{errors.minimum_quantity}</p>
+                  <p className="text-sm text-red-600">{errors.minimum_quantity}</p>
                 )}
               </div>
             </div>
 
-            <div className="grid gap-2">
+            <div className="grid gap-1.5">
               <Label htmlFor="edit-selling-price">Selling Price</Label>
               <Input
                 id="edit-selling-price"
@@ -158,15 +162,16 @@ export default function EditProductDialog({ open, product, onOpenChange, onUpdat
                 step="0.01"
                 value={form.selling_price}
                 onChange={(e) => handleChange('selling_price', e.target.value)}
+                className="h-9"
               />
               {errors.selling_price && (
-                <p className="text-sm text-red-500">{errors.selling_price}</p>
+                <p className="text-sm text-red-600">{errors.selling_price}</p>
               )}
             </div>
           </div>
 
           <DialogFooter>
-            <Button type="submit" disabled={submitting}>
+            <Button type="submit" disabled={submitting} className="h-9">
               {submitting ? 'Saving...' : 'Save Changes'}
             </Button>
           </DialogFooter>

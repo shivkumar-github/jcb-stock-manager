@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Package } from 'lucide-react'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -38,14 +39,19 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-background p-4">
-      <Card className="w-full max-w-sm">
-        <CardHeader>
-          <CardTitle className="text-xl">Stock Management Login</CardTitle>
+    <div className="flex min-h-screen w-full items-center justify-center bg-neutral-950 p-4">
+      <Card className="w-full max-w-sm border-0 shadow-2xl">
+        <CardHeader className="items-center gap-2 text-center">
+          <div className="mb-1 flex size-12 items-center justify-center rounded-xl bg-yellow-400 text-neutral-950 shadow-lg">
+            <Package className="size-6" />
+          </div>
+          <CardTitle className="text-lg font-bold tracking-tight">Stock Manager</CardTitle>
+          <p className="text-sm text-muted-foreground">Sign in to manage your inventory</p>
         </CardHeader>
+
         <CardContent>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <div className="grid gap-2">
+            <div className="grid gap-1.5">
               <Label htmlFor="login-email">Email</Label>
               <Input
                 id="login-email"
@@ -54,10 +60,11 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@company.com"
                 autoComplete="email"
+                className="h-10"
               />
             </div>
 
-            <div className="grid gap-2">
+            <div className="grid gap-1.5">
               <Label htmlFor="login-password">Password</Label>
               <Input
                 id="login-password"
@@ -66,12 +73,17 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 autoComplete="current-password"
+                className="h-10"
               />
             </div>
 
-            {error && <p className="text-sm text-red-500">{error}</p>}
+            {error && <p className="text-sm text-red-600">{error}</p>}
 
-            <Button type="submit" disabled={submitting} className="w-full">
+            <Button
+              type="submit"
+              disabled={submitting}
+              className="h-10 w-full font-semibold shadow-md"
+            >
               {submitting ? 'Signing in...' : 'Sign In'}
             </Button>
           </form>

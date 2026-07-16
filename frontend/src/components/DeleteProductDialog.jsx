@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { supabase } from '@/lib/supabase'
+import { Trash2 } from 'lucide-react'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -37,7 +38,10 @@ export default function DeleteProductDialog({ open, product, onOpenChange, onDel
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete this product?</AlertDialogTitle>
+          <AlertDialogTitle className="flex items-center gap-2">
+            <Trash2 className="size-4 text-red-600" />
+            Delete this product?
+          </AlertDialogTitle>
           <AlertDialogDescription>
             {product
               ? `This will permanently delete "${product.name}" (Part Number: ${product.part_number}). This action cannot be undone.`
@@ -46,11 +50,11 @@ export default function DeleteProductDialog({ open, product, onOpenChange, onDel
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel disabled={deleting}>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleDelete} disabled={deleting}>
+          <AlertDialogAction variant="destructive" onClick={handleDelete} disabled={deleting}>
             {deleting ? 'Deleting...' : 'Delete'}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
   )
-}
+} 

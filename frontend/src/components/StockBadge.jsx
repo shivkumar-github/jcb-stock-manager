@@ -1,20 +1,30 @@
 export default function StockBadge({ quantity, minimumQuantity }) {
-  let label = 'IN STOCK'
-  let classes = 'bg-green-100 text-green-800 border border-green-300'
+  let config = {
+    label: 'In Stock',
+    dot: 'bg-emerald-200',
+    classes: 'bg-emerald-500 text-white shadow-sm shadow-emerald-500/30',
+  }
 
   if (quantity === 0) {
-    label = 'OUT OF STOCK'
-    classes = 'bg-red-100 text-red-800 border border-red-300'
+    config = {
+      label: 'Out of Stock',
+      dot: 'bg-red-200',
+      classes: 'bg-red-500 text-white shadow-sm shadow-red-500/30',
+    }
   } else if (quantity <= minimumQuantity) {
-    label = 'LOW STOCK'
-    classes = 'bg-yellow-100 text-yellow-800 border border-yellow-300'
+    config = {
+      label: 'Low Stock',
+      dot: 'bg-amber-200',
+      classes: 'bg-amber-500 text-white shadow-sm shadow-amber-500/30',
+    }
   }
 
   return (
     <span
-      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold whitespace-nowrap ${classes}`}
+      className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold whitespace-nowrap ${config.classes}`}
     >
-      {label}
+      <span className={`size-1.5 rounded-full ${config.dot}`} />
+      {config.label}
     </span>
   )
 }

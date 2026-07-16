@@ -5,6 +5,7 @@ import { validateProduct } from '@/lib/validateProduct'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Plus } from 'lucide-react'
 import {
   Dialog,
   DialogContent,
@@ -23,7 +24,7 @@ const emptyForm = {
   selling_price: '',
 }
 
-export default function AddProductDialog({ onAdded }) {
+export default function AddProductDialog({ onAdded, triggerClassName }) {
   const [open, setOpen] = useState(false)
   const [form, setForm] = useState(emptyForm)
   const [errors, setErrors] = useState({})
@@ -89,74 +90,78 @@ export default function AddProductDialog({ onAdded }) {
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogTrigger
-        render={<Button />}
-      >
-        Add Product
+      <DialogTrigger render={<Button className={triggerClassName} />}>
+        <Plus />
+        <span className="hidden xs:inline">Add Product</span>
+        <span className="xs:hidden">Add</span>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[440px]">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>Add Product</DialogTitle>
             <DialogDescription>
-              Enter the details for the new product. Click save when done.
+              Enter the details for the new product, then save.
             </DialogDescription>
           </DialogHeader>
 
           <div className="grid gap-4 py-4">
-            <div className="grid gap-2">
+            <div className="grid gap-1.5">
               <Label htmlFor="add-part-number">Part Number</Label>
               <Input
                 id="add-part-number"
                 value={form.part_number}
                 onChange={(e) => handleChange('part_number', e.target.value)}
                 placeholder="e.g. PN-1001"
+                className="h-9"
               />
               {errors.part_number && (
-                <p className="text-sm text-red-500">{errors.part_number}</p>
+                <p className="text-sm text-red-600">{errors.part_number}</p>
               )}
             </div>
 
-            <div className="grid gap-2">
+            <div className="grid gap-1.5">
               <Label htmlFor="add-name">Product Name</Label>
               <Input
                 id="add-name"
                 value={form.name}
                 onChange={(e) => handleChange('name', e.target.value)}
                 placeholder="e.g. Hex Bolt M8"
+                className="h-9"
               />
-              {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
+              {errors.name && <p className="text-sm text-red-600">{errors.name}</p>}
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <div className="grid gap-2">
+              <div className="grid gap-1.5">
                 <Label htmlFor="add-quantity">Quantity</Label>
                 <Input
                   id="add-quantity"
                   type="number"
                   value={form.quantity}
                   onChange={(e) => handleChange('quantity', e.target.value)}
+                  className="h-9"
                 />
                 {errors.quantity && (
-                  <p className="text-sm text-red-500">{errors.quantity}</p>
+                  <p className="text-sm text-red-600">{errors.quantity}</p>
                 )}
               </div>
 
-              <div className="grid gap-2">
+              <div className="grid gap-1.5">
                 <Label htmlFor="add-minimum-quantity">Minimum Quantity</Label>
                 <Input
                   id="add-minimum-quantity"
                   type="number"
                   value={form.minimum_quantity}
                   onChange={(e) => handleChange('minimum_quantity', e.target.value)}
+                  className="h-9"
                 />
                 {errors.minimum_quantity && (
-                  <p className="text-sm text-red-500">{errors.minimum_quantity}</p>
+                  <p className="text-sm text-red-600">{errors.minimum_quantity}</p>
                 )}
               </div>
             </div>
 
-            <div className="grid gap-2">
+            <div className="grid gap-1.5">
               <Label htmlFor="add-selling-price">Selling Price</Label>
               <Input
                 id="add-selling-price"
@@ -165,15 +170,16 @@ export default function AddProductDialog({ onAdded }) {
                 value={form.selling_price}
                 onChange={(e) => handleChange('selling_price', e.target.value)}
                 placeholder="e.g. 199.99"
+                className="h-9"
               />
               {errors.selling_price && (
-                <p className="text-sm text-red-500">{errors.selling_price}</p>
+                <p className="text-sm text-red-600">{errors.selling_price}</p>
               )}
             </div>
           </div>
 
           <DialogFooter>
-            <Button type="submit" disabled={submitting}>
+            <Button type="submit" disabled={submitting} className="h-9">
               {submitting ? 'Saving...' : 'Save Product'}
             </Button>
           </DialogFooter>
